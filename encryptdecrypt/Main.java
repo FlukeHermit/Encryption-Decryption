@@ -2,23 +2,42 @@ package encryptdecrypt;
 
 import java.util.Scanner;
 
-public class Main {
+public class Main {    
+    static char begin = 32;
+    static char end = '~';
+    static int size = 95;
+
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
+        String option = sc.nextLine();
         String text = sc.nextLine();
         char[] chars = text.toCharArray();
         int shift = sc.nextInt();
 
-        char a = 'a';
-        char z = 'z';
-        int size = 26;
+        if (option.equals("enc")) {
+            encrypt(chars, shift);
+        } else if (option.equals("dec")) {
+            decrypt(chars, shift);        
+        }
 
+
+    }
+
+    public static void encrypt(char[] chars, int shift) {
         for (char letter : chars) {
-            if (letter >= a && letter <= z) {
-                char shiftItem = (char) (((letter - a + shift) % size) + a);
+            if (letter >= begin && letter <= end) {
+                char shiftItem = (char) (((letter - begin + shift) % size) + begin);
                 System.out.print(shiftItem);
-            } else {
-                System.out.print(letter);
+            }
+        }
+    }
+
+    public static void decrypt(char[] chars, int shift) {
+        for (char letter : chars) {
+            if (letter >= begin && letter <= end) {
+                char shiftItem = (char) (((letter - begin - shift) % size) + begin);
+                System.out.print(shiftItem);
             }
         }
     }
